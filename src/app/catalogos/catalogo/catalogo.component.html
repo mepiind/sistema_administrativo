@@ -1,0 +1,64 @@
+<div>
+    <mat-card style="max-width:750px;margin: auto;" >
+      <div style="display: flow-root;
+    margin-bottom: -37px;" *ngIf="!edit">
+        <button class="create" mat-icon-button color="warn" (click)="changeEdit()" >
+            <mat-icon class="mat-18">create</mat-icon>Editar
+        </button>
+      </div>
+
+
+
+      <mat-card-content >
+        <div class="page-wrap">
+        	<div  class="centralizad">
+        		<form style="width:100%">
+              <div *ngIf="!edit" class="cheio label"> <span style="font-weight:bold">Título:</span> {{catalogo.TITULO}}</div>
+        			<mat-form-field class="cheio" *ngIf="edit">
+        				<input  matInput placeholder="Título" id="titulo" name="titulo" [(ngModel)]="catalogo.TITULO" >
+              </mat-form-field>
+
+              <div *ngIf="!edit" class="cheio label"  [innerHTML]="catalogo.IFRAME"></div>
+
+
+        			<mat-form-field class="cheio" *ngIf="edit">
+        				<input  matInput placeholder="Iframe do catálogo" id="iframe" name="iframe" [(ngModel)]="catalogo.IFRAME" >
+              </mat-form-field>
+
+              <qrcode style="display: flex;
+              justify-content: center;" *ngIf="catalogo.CATALOGO != null" [qrdata]="generateQR(catalogo.CATALOGO)" [width]="256" [errorCorrectionLevel]="'M'"></qrcode>
+
+             
+              <img src="{{catalogo.LINK_IMG}}" *ngIf="!edit" class="cheio label" style="width: 200px; height: 282px; margin:auto"/>
+        			<mat-form-field class="cheio" *ngIf="edit">
+        				<input  matInput placeholder="Link da Imagem" id="download" name="download" [(ngModel)]="catalogo.LINK_IMG" >
+              </mat-form-field>
+              <button type="button" *ngIf="edit" style="margin-bottom:20px" mat-raised-button (click)="fileInput.click()">Upload de arquivo</button>
+              <button  *ngIf="edit" type="button" style="margin-bottom:20px" mat-raised-button (click)="converteDrive()">Converter link google drive</button>
+              <input hidden (change)="onFileSelected()" #fileInput type="file" id="file">
+
+              <mat-label class="cheio" style="margin-top: 20px;
+              font-weight: bold;" *ngIf="catalogo.PRODUTOS">Produtos Associados</mat-label>
+              <mat-form-field class="metade" *ngIf="edit">
+                <mat-select id="produto"  name="produtos"  [(ngModel)]="catalogo.PRODUTOS" multiple>
+                  <div  *ngFor="let produtoDisp of produtosDisp" >
+                    <mat-option value="{{produtoDisp.PRODUTO}}">{{produtoDisp.DESCRICAO}}</mat-option>
+                  </div>
+                </mat-select>
+                </mat-form-field>
+                <div  *ngIf="!edit">
+                  <div  *ngFor="let produtoDisp of produtosDisp">
+                    <a style="text-decoration: underline;
+                    color: dodgerblue;
+                    cursor: pointer;" (click)="enviaProduto(produtoDisp.PRODUTO)" *ngIf="catalogo.PRODUTOS.includes(produtoDisp.PRODUTO);">{{produtoDisp.DESCRICAO}}</a>
+                  </div>
+                </div>
+                <div class="espaco"> </div>
+
+              <button style="width: 100%;" mat-raised-button color="primary" *ngIf="edit" (click)="salvar()">Salvar</button>
+        		</form>
+        	</div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+</div>

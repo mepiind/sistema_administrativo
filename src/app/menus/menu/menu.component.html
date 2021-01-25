@@ -1,0 +1,48 @@
+<div>
+    <mat-card style="max-width:750px;margin: auto;" >
+      <div style="display: flow-root;
+    margin-bottom: -37px;" *ngIf="!edit">
+        <button class="create" mat-icon-button color="warn" (click)="changeEdit()" >
+            <mat-icon class="mat-18">create</mat-icon>Editar
+        </button>
+      </div>
+      <mat-card-content >
+        <div class="page-wrap">
+        	<div  class="centralizad">
+        		<form style="width:100%">
+              <div *ngIf="!edit" class="cheio label"> Descrição: {{menu.DESCRICAO}}</div>
+        			<mat-form-field class="cheio" *ngIf="edit">
+        				<input  matInput placeholder="Descrição" id="descricao" name="descricao" [(ngModel)]="menu.DESCRICAO" >
+              </mat-form-field>
+              <div *ngIf="!edit" class="cheio label">Categoria: {{menu.TIPO}}</div>
+              <mat-form-field class="metade" *ngIf="edit">
+                <mat-label>Tipo</mat-label>
+                <mat-select  name="tipo" id="menuTipo" [(ngModel)]="menu.TIPO">
+                  <mat-option value="1">Serviços</mat-option>
+                  <mat-option value="2">EPI</mat-option>
+                  <mat-option value="3">Linha de Vida</mat-option>
+                </mat-select>
+              </mat-form-field>
+              <div class="espaco"></div>
+              <mat-form-field class="metade" *ngIf="edit">
+                <mat-label>Menu Pai</mat-label>
+                <mat-select id="menuPai"  name="menu_pai"  [(ngModel)]="menu.PAI_CATEGORIA">
+                  <div  *ngFor="let categoria of categorias" >
+                    <mat-option value="{{categoria.CATEGORIA}}">{{categoria.DESCRICAO}}</mat-option>
+                  </div>
+                </mat-select>
+              </mat-form-field>
+              <img src="{{menu.ICONE}}" *ngIf="!edit" class="cheio label"/>
+        			<mat-form-field class="cheio" *ngIf="edit">
+        				<input  matInput placeholder="Link da Imagem" id="download" name="download" [(ngModel)]="menu.ICONE" >
+              </mat-form-field>
+              <button type="button" *ngIf="edit" style="margin-bottom:20px" mat-raised-button (click)="fileInput.click()">Upload de arquivo</button>
+              <button  *ngIf="edit" type="button" style="margin-bottom:20px" mat-raised-button (click)="converteDrive()">Converter link google drive</button>
+              <input hidden (change)="onFileSelected()" #fileInput type="file" id="file">
+              <button style="width: 100%;" mat-raised-button color="primary" *ngIf="edit" (click)="salvar()">Salvar</button>
+        		</form>
+        	</div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+</div> 

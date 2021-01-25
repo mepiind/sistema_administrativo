@@ -1,0 +1,23 @@
+<div class="centrilizadContent" style="height:-webkit-fill-available">
+  <mat-card style="max-width:300px" >
+    <div class="centralizad">
+      <img  width="60%" src="http://mepi.ind.br/2016/images/logo.png" />
+    </div>
+    <mat-card-content >
+      <div class="page-wrap">
+      	<div  class="centralizad">
+      		<form>
+      			<mat-form-field style="width: 100%;">
+      				<input matInput placeholder="Email" name="login" [(ngModel)]="login"  required>
+      			</mat-form-field>
+      			<mat-form-field style="width: 100%;">
+      				<input matInput placeholder="Password" name="senha" [(ngModel)]="senha"  required>
+      			</mat-form-field>
+            <br>
+      			<button style="width: 100%;" mat-raised-button color="primary" (click)="loggin()">Login</button>
+      		</form>
+      	</div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

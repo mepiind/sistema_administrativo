@@ -1,0 +1,38 @@
+<div>
+    <mat-card style="max-width:750px;margin: auto;" >
+      <div style="display: flow-root;
+    margin-bottom: -37px;" *ngIf="!edit">
+        <button class="create" mat-icon-button color="warn" (click)="changeEdit()" >
+            <mat-icon class="mat-18">create</mat-icon>Editar
+        </button>
+      </div>
+      <mat-card-content >
+        <div class="page-wrap">
+        	<div  class="centralizad">
+        		<form style="width:100%">
+              <div *ngIf="!edit" class="cheio label"> Título: {{noticia.TITULO}}</div>
+        			<mat-form-field class="cheio" *ngIf="edit">
+        				<input  matInput placeholder="Título da notícia" id="titulo" name="titulo" [(ngModel)]="noticia.TITULO" >
+              </mat-form-field>
+              <div *ngIf="!edit" class="cheio label texto" > Descrição: {{noticia.DESCRICAO}}</div>
+        			<mat-form-field class="cheio" *ngIf="edit">
+                <textarea cdkTextareaAutosize  #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="5" matInput placeholder="Descrição:" id="descricao" name="descricao" [(ngModel)]="noticia.DESCRICAO" > </textarea>
+              </mat-form-field>
+              <div *ngIf="!edit" class="cheio label texto"> Descrição: {{noticia.DESCRICAO_REDUZ}}</div>
+        			<mat-form-field class="cheio" *ngIf="edit">
+                <textarea cdkTextareaAutosize  #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="5" matInput placeholder="Descrição reduzida:" id="descricaoReduz" name="descricaoReduz" [(ngModel)]="noticia.DESCRICAO_REDUZ" > </textarea>
+              </mat-form-field>
+              <img src="{{noticia.LINK_IMG}}" *ngIf="!edit" class="cheio label"/>
+        			<mat-form-field class="cheio" *ngIf="edit">
+        				<input  matInput placeholder="Link da Imagem" id="download" name="download" [(ngModel)]="noticia.LINK_IMG" >
+              </mat-form-field>
+              <button type="button" *ngIf="edit" style="margin-bottom:20px" mat-raised-button (click)="fileInput.click()">Upload de arquivo</button>
+              <button  *ngIf="edit" type="button" style="margin-bottom:20px" mat-raised-button (click)="converteDrive()">Converter link google drive</button>
+              <input hidden (change)="onFileSelected()" #fileInput type="file" id="file">
+              <button style="width: 100%;" mat-raised-button color="primary" *ngIf="edit" (click)="salvar()">Salvar</button>
+        		</form>
+        	</div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+</div>

@@ -1,0 +1,31 @@
+
+
+<mat-sidenav-container fullscreen>
+  <mat-sidenav #sidenav>
+    <mat-nav-list>
+      <a mat-list-item [routerLink]="'/home'"> Home </a>
+      <a mat-list-item [routerLink]="'/clientes'"> Clientes </a>
+      <a mat-list-item [routerLink]="'/setores'"> Setores </a>
+      <a mat-list-item [routerLink]="'/catalogos'"> Catalogos </a>
+      <a mat-list-item [routerLink]="'/produtos'"> Produtos e Serviços </a>
+      <a mat-list-item [routerLink]="'/normas'"> Normas </a>
+      <a mat-list-item [routerLink]="'/menus'"> Menus </a>
+      <a mat-list-item [routerLink]="'/noticias'"> Notícias </a>
+      <a mat-list-item (click)="sidenav.toggle()" href="" mat-list-item>Close</a>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar color="primary" *ngIf="env.logged">
+      <mat-toolbar-row>
+        <button mat-icon-button>
+          <mat-icon (click)="sidenav.toggle()">menu</mat-icon>
+        </button>
+        <img src="https://mepi.ind.br/framework/assets/mepi_icon.png" style="width: 112px;margin-left: 20px;" />
+      </mat-toolbar-row>
+    </mat-toolbar>
+    <app-spinner-overlay-component></app-spinner-overlay-component>
+    <div  style="padding: 50px;">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

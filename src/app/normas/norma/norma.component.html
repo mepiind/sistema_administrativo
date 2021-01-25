@@ -1,0 +1,43 @@
+<div>
+    <mat-card style="max-width:750px;margin: auto;" >
+      <div style="display: flow-root;
+    margin-bottom: -37px;" *ngIf="!edit">
+        <button class="create" mat-icon-button color="warn" (click)="changeEdit()" >
+            <mat-icon class="mat-18">create</mat-icon>Editar
+        </button>
+      </div>
+      <mat-card-content >
+        <div class="page-wrap">
+        	<div  class="centralizad">
+        		<form style="width:100%">
+
+              <div *ngIf="!edit" class="cheio label"> Número da norma: {{norma.N_NORMA}}</div>
+              <mat-form-field class="cheio" *ngIf="edit">
+                <input  matInput placeholder="Nº da Norma:" id="n_norma" name="n_norma" [(ngModel)]="norma.N_NORMA" >
+              </mat-form-field>
+
+              <div *ngIf="!edit" class="cheio label"> Título: {{norma.TITULO}}</div>
+        			<mat-form-field class="cheio" *ngIf="edit">
+        				<input  matInput placeholder="Título:" id="titulo" name="titulo" [(ngModel)]="norma.TITULO" >
+              </mat-form-field>
+
+              <div *ngIf="!edit" class="cheio label texto"> Descrição: {{norma.DESCRICAO}}</div>
+        			<mat-form-field class="cheio" *ngIf="edit">
+        				<textarea cdkTextareaAutosize  #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="5" matInput placeholder="Descrição:" id="descricao" name="descricao" [(ngModel)]="norma.DESCRICAO" > </textarea>
+              </mat-form-field>
+
+              <a href="{{norma.DOWNLOAD}}" *ngIf="!edit" class="cheio label"> Link do Download: {{norma.DOWNLOAD}}</a>
+        			<mat-form-field class="cheio" *ngIf="edit">
+        				<input  matInput placeholder="Download:" id="download" name="download" [(ngModel)]="norma.DOWNLOAD" >
+              </mat-form-field>
+
+              <button  *ngIf="edit" style="margin-bottom:20px" type="button" mat-raised-button (click)="fileInput.click()">Upload de arquivo</button>
+              <input hidden (change)="onFileSelected()" #fileInput type="file" id="file">
+
+              <button style="width: 100%;" mat-raised-button color="primary" *ngIf="edit" (click)="salvar()">Salvar</button>
+        		</form>
+        	</div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+</div>

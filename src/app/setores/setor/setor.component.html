@@ -1,0 +1,42 @@
+<div>
+    <mat-card style="max-width:750px;margin: auto;" >
+      <div style="display: flow-root;
+    margin-bottom: -37px;" *ngIf="!edit">
+        <button class="create" mat-icon-button color="warn" (click)="changeEdit()" >
+            <mat-icon class="mat-18">create</mat-icon>Editar
+        </button>
+      </div>
+      <mat-card-content >
+        <div class="page-wrap">
+        	<div  class="centralizad">
+                <form style="width:100%" >
+                    
+                    <mat-form-field class="example-full-width " id="cliente" style="width:100%">
+                        <input type="text"
+                               placeholder="Cliente"
+                               aria-label="Number"
+                               matInput
+                               [formControl]="myControl"
+                               [matAutocomplete]="auto"
+                               [(ngModel)]="setor.CLIENTE"
+                              >
+                        <mat-autocomplete style="width:100%" #auto="matAutocomplete"  [displayWith]="AutoCompleteDisplay">
+                          <mat-option (onSelect)="changeCliente(cliente.CLIENTE)" *ngFor="let  cliente of filteredOptions | async" [value]="cliente" >
+                            {{cliente.NOME}}
+                          </mat-option>
+                        </mat-autocomplete>
+                      </mat-form-field>
+
+              <div *ngIf="!edit" class="cheio label"> NOME: {{setor.NOME}}</div>
+        			<mat-form-field class="cheio" *ngIf="edit">
+        				<input  matInput id="nome" placeholder="Nome do Setor" name="nome" [(ngModel)]="setor.NOME" >
+                    </mat-form-field>
+
+              <button style="width: 100%;" mat-raised-button color="primary" *ngIf="edit" (click)="salvar()">Salvar</button>
+        		</form>
+            </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+</div>
+

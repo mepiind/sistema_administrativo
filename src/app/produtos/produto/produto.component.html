@@ -1,0 +1,101 @@
+<div>
+
+
+
+    <mat-card style="max-width:750px;margin: auto;" >
+      <div style="display: flow-root;
+    margin-bottom: -37px;" *ngIf="!edit">
+        <button class="create" mat-icon-button color="warn" (click)="changeEdit()" >
+            <mat-icon class="mat-18">create</mat-icon>Editar
+        </button>
+      </div>
+
+      <qrcode *ngIf="produto.PRODUTO != null" [qrdata]="generateQR(produto.PRODUTO)" [width]="256" [errorCorrectionLevel]="'M'"></qrcode>
+
+      <mat-card-content >
+
+        <div class="page-wrap">
+        	<div  class="centralizad">
+        		<form style="width:100%">
+
+              <div *ngIf="!edit" class="cheio label"> Categoria: {{produto.MENU_DESC}}</div>
+
+              <mat-form-field class="metade" *ngIf="edit">
+                <mat-label>Categoria:</mat-label>
+                <mat-select id="menu"  name="menu"  [(ngModel)]="produto.CATEGORIA" >
+                  <div  *ngFor="let menu of menus" >
+                    <mat-option value="{{menu.CATEGORIA}}">{{menu.DESCRICAO}}</mat-option>
+                  </div>
+                </mat-select >
+              </mat-form-field>
+              <div class="espaco"></div>
+              <div *ngIf="!edit" class="metade label"> Código: {{produto.CODIGO}}</div>
+              <mat-form-field class="metade" *ngIf="edit">
+                <input  matInput placeholder="Código do produto:" id="codigo" name="codigo" [(ngModel)]="produto.CODIGO" >
+              </mat-form-field>
+
+              <div *ngIf="!edit" class="metade label"> Norma: {{produto.NORMA}}</div>
+              <mat-form-field class="metade" *ngIf="edit">
+                <input  matInput placeholder="Norma:" id="norma" name="norma" [(ngModel)]="produto.NORMA" >
+              </mat-form-field>
+              <div class="espaco"></div>
+              <div *ngIf="!edit" class="metade label"> Marca: {{produto.MARCA}}</div>
+              <mat-form-field class="metade" *ngIf="edit">
+                <input  matInput placeholder="Marca:" id="marca" name="marca" [(ngModel)]="produto.MARCA" >
+              </mat-form-field>
+
+              <div *ngIf="!edit" class="cheio label"> CA: {{produto.CA}}</div>
+              <mat-form-field class="cheio" *ngIf="edit">
+                <input  matInput placeholder="Ca:" id="ca" name="ca" [(ngModel)]="produto.CA" >
+              </mat-form-field>
+
+              <div *ngIf="!edit" class="cheio label texto"> Descrição: <br> <br> {{produto.DESCRICAO}}</div>
+        			<mat-form-field class="cheio" *ngIf="edit">
+                <textarea cdkTextareaAutosize  #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="5" matInput placeholder="Descrição:" id="descricao" name="descricao" [(ngModel)]="produto.DESCRICAO" > </textarea>
+              </mat-form-field>
+
+              <div *ngIf="!edit" class="cheio label texto"> Características:  <br> <br> {{produto.CARACTERISTICAS}}</div>
+              <mat-form-field class="cheio" *ngIf="edit">
+                <textarea cdkTextareaAutosize  #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="5" matInput placeholder="Características:" id="caracteristicas" name="caracteristicas" [(ngModel)]="produto.CARACTERISTICAS" > </textarea>
+              </mat-form-field>
+
+              <div *ngIf="!edit" class="cheio label texto"> Informações: <br> <br> {{produto.INFORMACAO}}</div>
+              <mat-form-field class="cheio" *ngIf="edit">
+                <textarea cdkTextareaAutosize  #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="5" matInput placeholder="Informações:" id="informacoes" name="informacoes" [(ngModel)]="produto.INFORMACAO" > </textarea>
+              </mat-form-field>
+
+              <div *ngIf="!edit" class="cheio label texto"> Informações: <br> <br> {{produto.APLICACAO}}</div>
+              <mat-form-field class="cheio" *ngIf="edit">
+                <textarea cdkTextareaAutosize  #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="5" matInput placeholder="Aplicação:" id="aplicacao" name="aplicacao" [(ngModel)]="produto.APLICACAO" > </textarea>
+              </mat-form-field>
+
+              <div *ngIf="!edit" class="cheio label texto"> Adicionais: <br> <br> {{produto.ADICIONAIS}}</div>
+              <mat-form-field class="cheio" *ngIf="edit">
+                <textarea cdkTextareaAutosize  #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="5" matInput placeholder="Informações adicionais:" id="adicionais" name="adicionais" [(ngModel)]="produto.ADICIONAIS" > </textarea>
+              </mat-form-field>
+
+              <img src="{{produto.LINK_FOTO}}" *ngIf="!edit" class="cheio label"/>
+        			<mat-form-field class="cheio" *ngIf="edit">
+        				<input  matInput placeholder="Link da Imagem renderizada" id="imagem" name="imagem" [(ngModel)]="produto.LINK_FOTO" >
+              </mat-form-field>
+
+              <button  *ngIf="edit" type="button" style="margin-bottom:20px" mat-raised-button (click)="fileInput.click()">Upload de arquivo</button>
+              <button  *ngIf="edit" type="button" style="margin-bottom:20px" mat-raised-button (click)="converteDrive('LINK_FOTO')">Converter link da foto renredizara google drive</button>
+
+              <img src="{{produto.LINK_FOTO_REAL}}" *ngIf="!edit" class="cheio label"/>
+              <mat-form-field class="cheio" *ngIf="edit">
+                <input  matInput placeholder="Link da Imagem real" id="imagem_real" name="imagem_real" [(ngModel)]="produto.LINK_FOTO_REAL" >
+              </mat-form-field>
+              <button  *ngIf="edit" type="button" style="margin-bottom:20px" mat-raised-button (click)="fileInput2.click()">Upload de arquivo</button>
+              <button  *ngIf="edit" type="button" style="margin-bottom:20px" mat-raised-button (click)="converteDrive('LINK_FOTO_REAL')">Converter link da foto real google drive</button>
+
+              <input hidden (change)="onFileSelected('LINK_FOTO')" #fileInput type="file" id="file">
+              <input hidden (change)="onFileSelected('LINK_FOTO_REAL')" #fileInput2 type="file" id="file2">
+
+              <button style="width: 100%;" mat-raised-button color="primary" *ngIf="edit" (click)="salvar()">Salvar</button>
+        		</form>
+        	</div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+</div>

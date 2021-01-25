@@ -1,0 +1,48 @@
+<div>
+  <button class="create" mat-icon-button color="warn" (click)="redirectToCrud( 'new', null)">
+    <mat-icon class="mat-18">create_new_folder</mat-icon>Criar novo
+  </button>
+</div>
+
+<table mat-table [dataSource]="dataSource" class="table">
+  <ng-container matColumnDef="norma">
+    <th mat-header-cell *matHeaderCellDef> Norma </th>
+    <td mat-cell *matCellDef="let element"> {{element.N_NORMA}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="titulo">
+    <th mat-header-cell *matHeaderCellDef> Título </th>
+    <td mat-cell *matCellDef="let element"> {{element.TITULO}} </td>
+  </ng-container>
+
+
+  <ng-container matColumnDef="details">
+   <th mat-header-cell *matHeaderCellDef> Detalhes </th>
+   <td mat-cell *matCellDef="let element">
+     <button mat-icon-button color="primary" (click)="redirectToCrud('details', element.NORMA)">
+         <mat-icon class="mat-18">reorder</mat-icon>
+     </button>
+   </td>
+ </ng-container>
+
+  <ng-container matColumnDef="update">
+      <th mat-header-cell *matHeaderCellDef> Editar </th>
+      <td mat-cell *matCellDef="let element">
+        <button mat-icon-button color="accent" (click)="redirectToCrud('edit', element.NORMA)">
+            <mat-icon class="mat-18">edit</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="delete">
+        <th mat-header-cell *matHeaderCellDef> Remover </th>
+        <td mat-cell *matCellDef="let element">
+          <button mat-icon-button color="warn" (click)="redirectToCrud('delete', element.NORMA)">
+              <mat-icon class="mat-18">delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>

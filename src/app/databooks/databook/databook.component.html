@@ -1,0 +1,95 @@
+<div>
+    <mat-card style="max-width:750px;margin: auto;" >
+      <div style="display: flow-root;
+    margin-bottom: -37px;" *ngIf="!edit">
+        <button class="create" mat-icon-button color="warn" (click)="changeEdit()" >
+            <mat-icon class="mat-18">create</mat-icon>Editar
+        </button>
+      </div>
+      <mat-card-content >
+
+        <qrcode *ngIf="databook.DATABOOK != null" [qrdata]="generateQR(databook.DATABOOK,databook.TITULO)" [width]="256" [errorCorrectionLevel]="'M'"></qrcode>
+
+        <div class="metade label " > Empresa: {{databook.CLIENTE_NOME}}</div>
+        <div class="metade label " > Setor: {{databook.SETOR_NOME}}</div>
+
+        <div class="page-wrap">
+        	<div  class="centralizad">
+        		<form style="width:100%">
+              <div *ngIf="!edit" class="cheio label"> TITULO: {{databook.TITULO}}</div>
+        			<mat-form-field class="cheio" *ngIf="edit">
+        				<input  matInput id="titulo" placeholder="titulo" name="titulo" [(ngModel)]="databook.TITULO" >
+              </mat-form-field>
+              <div class="metade label " *ngIf="!edit"> Validade: {{databook.VALIDADE}}</div>
+              <mat-form-field class="metade" *ngIf="edit">
+                <mat-label>Validade</mat-label>
+                <input id="validade" matInput [matDatepicker]="picker" [textMask]="mask" [value]="date.value" (dateSelected)="date" (dateInput)="addEvent($event)" >
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+              </mat-form-field>
+              <div class="metade label"> Status: {{databook.STATUS}}</div>
+                          
+                 <div class="espaco"> </div>
+
+              
+              <button style="width: 100%;" mat-raised-button color="primary" *ngIf="edit" (click)="salvar()">Salvar</button>
+        		</form>
+        	</div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+</div>
+<div style="margin-top: 34px;
+font-size: 20px;
+color: rgb(0 0 0 / 60%);
+font-weight: bold;"> Databooks </div>
+<div>
+  <div>
+    <button class="create" mat-icon-button color="warn" (click)="redirectToCrud(this.databook.DATABOOK, 'new')">
+      <mat-icon class="mat-18">create_new_folder</mat-icon>Criar novo
+    </button>
+  </div>
+  <table mat-table [dataSource]="dataSource" class="table">
+    <ng-container matColumnDef="titulo">
+      <th mat-header-cell *matHeaderCellDef> titulo </th>
+      <td mat-cell *matCellDef="let element"> {{element.NOME}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="registro">
+      <th mat-header-cell *matHeaderCellDef> Data de Registro </th>
+      <td mat-cell *matCellDef="let element"> {{element.DT_CADASTRADO}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="details">
+     <th mat-header-cell *matHeaderCellDef> Detalhes </th>
+     <td mat-cell *matCellDef="let element">
+       <button mat-icon-button color="primary" (click)="redirectToCrud(element.ITEM, 'details')">
+           <mat-icon class="mat-18">reorder</mat-icon>
+       </button>
+     </td>
+   </ng-container>
+
+    <ng-container matColumnDef="update">
+        <th mat-header-cell *matHeaderCellDef> Editar </th>
+        <td mat-cell *matCellDef="let element">
+          <button mat-icon-button color="accent" (click)="redirectToCrud(element.ITEM, 'edit')">
+              <mat-icon class="mat-18">edit</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="delete">
+          <th mat-header-cell *matHeaderCellDef> Remover </th>
+          <td mat-cell *matCellDef="let element">
+            <button mat-icon-button color="warn" (click)="redirectToCrud(element.ITEM, 'delete')">
+                <mat-icon class="mat-18">delete</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+</div>
+

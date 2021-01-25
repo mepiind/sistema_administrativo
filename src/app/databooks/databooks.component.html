@@ -1,0 +1,70 @@
+
+<div *ngIf="clientesBool">
+<mat-label class="cheio">Cliente</mat-label>
+  <mat-form-field class="metade">
+    <mat-select id="produto"  name="produtos"  [(ngModel)]="cliente"  (selectionChange)="onBookChange($event)">
+      <div  *ngFor="let cliente of clientes" >
+        <mat-option value="{{cliente.CLIENTE}}">{{cliente.NOME}}</mat-option>
+      </div>
+    </mat-select>
+    </mat-form-field>
+</div>
+
+<div>
+  <div>
+    <button class="create" mat-icon-button color="warn" (click)="redirectToCrud(null, 'new')">
+      <mat-icon class="mat-18">create_new_folder</mat-icon>Criar novo
+    </button>
+  </div>
+  <table mat-table [dataSource]="dataSource" class="table">
+    <ng-container matColumnDef="titulo">
+      <th mat-header-cell *matHeaderCellDef> titulo </th>
+      <td mat-cell *matCellDef="let element"> {{element.TITULO}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef> Status </th>
+      <td mat-cell *matCellDef="let element"> {{element.STATUS}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="validade">
+      <th mat-header-cell *matHeaderCellDef> Data de validade </th>
+      <td mat-cell *matCellDef="let element"> {{element.VALIDADE}} </td>
+    </ng-container>
+
+  
+
+
+    <ng-container matColumnDef="details">
+     <th mat-header-cell *matHeaderCellDef> Detalhes </th>
+     <td mat-cell *matCellDef="let element">
+       <button mat-icon-button color="primary" (click)="redirectToCrud(element.DATABOOK, 'details')">
+           <mat-icon class="mat-18">reorder</mat-icon>
+       </button>
+     </td>
+   </ng-container>
+
+    <ng-container matColumnDef="update">
+        <th mat-header-cell *matHeaderCellDef> Editar </th>
+        <td mat-cell *matCellDef="let element">
+          <button mat-icon-button color="accent" (click)="redirectToCrud(element.DATABOOK, 'edit')">
+              <mat-icon class="mat-18">edit</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="delete">
+          <th mat-header-cell *matHeaderCellDef> Remover </th>
+          <td mat-cell *matCellDef="let element">
+            <button mat-icon-button color="warn" (click)="redirectToCrud(element.DATABOOK, 'delete')">
+                <mat-icon class="mat-18">delete</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+</div>
+

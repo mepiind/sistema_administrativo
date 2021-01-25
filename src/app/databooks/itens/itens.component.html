@@ -1,0 +1,55 @@
+<div>
+    <mat-card style="max-width:750px;margin: auto;" >
+      <div style="display: flow-root;
+    margin-bottom: -37px;" *ngIf="!edit">
+        <button class="create" mat-icon-button color="warn" (click)="changeEdit()" >
+            <mat-icon class="mat-18">create</mat-icon>Editar
+        </button>
+      </div>
+      <mat-card-content >
+        <div class="page-wrap">
+
+          <qrcode *ngIf="item.ITEM != null" [qrdata]="generateQR(item.ITEM)" [width]="256" [errorCorrectionLevel]="'M'"></qrcode>
+
+
+        	<div  class="centralizad">
+        		<form style="width:100%">
+              <div *ngIf="!edit" class="cheio label"> TITULO: {{item.NOME}}</div>
+        			<mat-form-field class="cheio" *ngIf="edit">
+        				<input  matInput id="titulo" placeholder="titulo" name="titulo" [(ngModel)]="item.NOME" >
+              </mat-form-field>
+
+
+              <div *ngIf="!edit" class="cheio label texto"> Descrição: {{item.DESCRICAO}}</div>
+        			<mat-form-field class="cheio" *ngIf="edit">
+        				<textarea cdkTextareaAutosize  #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="5" matInput placeholder="Descrição:" id="descricao" name="descricao" [(ngModel)]="item.DESCRICAO" > </textarea>
+              </mat-form-field>
+
+              <div class="metade label " *ngIf="!edit"> Data realizado: {{item.DT_CADASTRADO}}</div>
+              <mat-form-field class="metade" *ngIf="edit">
+                <mat-label>Data realizado</mat-label>
+                <input id="validade" matInput [matDatepicker]="picker" [value]="date.value" [textMask]="mask"  (dateSelected)="date" (dateInput)="addEvent($event)">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+              </mat-form-field>
+
+              <a href="{{item.DOWNLOAD}}" *ngIf="!edit" class="cheio label">{{item.DOWNLOAD}}</a>
+        			<mat-form-field class="cheio" *ngIf="edit">
+        				<input  matInput placeholder="Link do download" id="download" name="download" [(ngModel)]="item.DOWNLOAD" >
+              </mat-form-field>
+              <button type="button" *ngIf="edit" style="margin-bottom:20px" mat-raised-button (click)="fileInput.click()">Upload de arquivo</button>
+              <button  *ngIf="edit" type="button" style="margin-bottom:20px" mat-raised-button (click)="converteDrive()">Converter link google drive</button>
+              <input hidden (change)="onFileSelected()" #fileInput type="file" id="file">
+
+              <input hidden (change)="onFileSelected()" #fileInput type="file" id="file">
+
+                  <div class="espaco"> </div>
+
+              
+              <button style="width: 100%;" mat-raised-button color="primary" *ngIf="edit" (click)="salvar()">Salvar</button>
+        		</form>
+        	</div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+</div>
